@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profession {
+  id             String          @id @default(uuid())
+  slug           String          @unique
+  title          String
+  description    String
+  seoTitle       String
+  seoDescription String
+  
+  tools          ToolProfession[]
+  seoContent     SEOContent?
+
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model Tool {
+  id            String          @id @default(uuid())
+  name          String
+  slug          String          @unique
+  website       String
+  pricing       String
+  logo          String
+  affiliateLink String?
+
+  professions   ToolProfession[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model ToolProfession {
+  toolId       String
+  professionId String
+  rating       Int
+  useCase      String
+
+  tool         Tool       @relation(fields: [toolId], references: [id])
+  profession   Profession @relation(fields: [professionId], references: [id])
+
+  @@id([toolId, professionId])
+}
+
+model SEOContent {
+  id           String     @id @default(uuid())
+  professionId String     @unique
+  intro        String
+  faqJson      String     // Stored as JSON string
+
+  profession   Profession @relation(fields: [professionId], references: [id])
+}
