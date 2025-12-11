@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import { Metadata } from 'next';
+import { Hero } from '@/components/Hero';
 
 export const metadata: Metadata = {
   title: 'UseThisAI - Best AI Tools for Every Profession',
@@ -26,65 +27,58 @@ export default async function Home() {
   const relationshipCount = await prisma.toolProfession.count();
 
   return (
-    <main className="min-h-screen bg-neutral-50 font-sans text-neutral-900">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-neutral-900 py-24 sm:py-32">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-neutral-900 to-neutral-950 opacity-90" />
-          <div className="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 rounded-full bg-indigo-500 blur-3xl opacity-20" />
-          <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-96 h-96 rounded-full bg-purple-500 blur-3xl opacity-20" />
-        </div>
+    <main className="min-h-screen">
+      <Hero
+        title="Find the Best AI Tools for Your Profession"
+        description={`Compare ${toolCount}+ AI tools across ${professionCount} professions. Get curated recommendations tailored to your specific workflow.`}
+      />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold tracking-tight text-white sm:text-6xl mb-6">
-            Find the Best AI Tools for Your Profession
-          </h1>
-          <p className="mx-auto max-w-2xl text-xl leading-8 text-neutral-300 mb-8">
-            Compare {toolCount}+ AI tools across {professionCount} professions. Get curated recommendations for dentists, lawyers, marketers, developers, and more.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/professions"
-              className="rounded-md bg-indigo-600 px-8 py-3 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 transition-colors"
-            >
-              Browse All Professions
-            </Link>
-            <Link
-              href="/tools"
-              className="rounded-md border border-neutral-400 px-8 py-3 text-lg font-semibold text-white hover:bg-white/10 transition-colors"
-            >
-              View All Tools
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Main Buttons (previously in Hero) */}
+      <div className="relative z-20 -mt-10 mb-20 flex flex-col sm:flex-row items-center justify-center gap-4 px-6">
+        <Link
+          href="/professions"
+          className="rounded-full bg-indigo-600 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-500 hover:scale-105 transition-all duration-300"
+        >
+          Browse Recommended Tools
+        </Link>
+        <Link
+          href="/tools"
+          className="rounded-full bg-white/5 border border-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm hover:bg-white/10 hover:scale-105 transition-all duration-300"
+        >
+          View All Tools
+        </Link>
+      </div>
 
       {/* Stats Section */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 text-center">
-          <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-neutral-200">
-            <div className="text-4xl font-bold text-indigo-600 mb-2">{toolCount}+</div>
-            <p className="text-neutral-600">AI Tools Reviewed</p>
-          </div>
-          <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-neutral-200">
-            <div className="text-4xl font-bold text-indigo-600 mb-2">{professionCount}+</div>
-            <p className="text-neutral-600">Professions Covered</p>
-          </div>
-          <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-neutral-200">
-            <div className="text-4xl font-bold text-indigo-600 mb-2">{relationshipCount}+</div>
-            <p className="text-neutral-600">Tool Recommendations</p>
-          </div>
+      <section className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 text-center">
+          {[
+            { count: toolCount, label: 'AI Tools Reviewed' },
+            { count: professionCount, label: 'Professions Covered' },
+            { count: relationshipCount, label: 'Curated Matches' },
+          ].map((stat, idx) => (
+            <div key={idx} className="group relative overflow-hidden rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-md transition-all hover:bg-white/10">
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 mb-2">
+                  {stat.count}+
+                </div>
+                <p className="text-indigo-200 font-medium">{stat.label}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Featured Professions */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold tracking-tight text-neutral-900 mb-4">
+      <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
+        <div className="mb-16 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-4">
             Popular Professions
           </h2>
-          <p className="text-xl text-neutral-600">
-            Explore AI tools tailored for your industry
+          <div className="h-1 w-20 bg-indigo-500 mx-auto rounded-full mb-4" />
+          <p className="text-lg text-neutral-400">
+            Explore AI use cases tailored to your industry
           </p>
         </div>
 
@@ -93,78 +87,88 @@ export default async function Home() {
             <Link
               key={profession.slug}
               href={`/ai-tools-for/${profession.slug}`}
-              className="group relative overflow-hidden rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 transition-all hover:shadow-lg hover:ring-indigo-500/50"
+              className="group relative overflow-hidden rounded-xl bg-white/5 p-6 ring-1 ring-white/10 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/10 hover:ring-indigo-500/50"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/0 to-indigo-500/0 group-hover:from-indigo-500/5 group-hover:via-indigo-500/10 group-hover:to-indigo-500/5 transition-all" />
-              <div className="relative">
-                <h3 className="text-lg font-semibold text-neutral-900 group-hover:text-indigo-600 transition-colors">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative z-10">
+                <h3 className="text-lg font-semibold text-white group-hover:text-indigo-300 transition-colors">
                   {profession.title}
                 </h3>
-                <p className="text-sm text-neutral-500 mt-2">Best AI tools →</p>
+                <p className="text-sm text-neutral-500 mt-2 group-hover:text-neutral-300 transition-colors">
+                  View Tools →
+                </p>
               </div>
             </Link>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-16 text-center">
           <Link
             href="/professions"
-            className="inline-flex items-center justify-center rounded-md bg-neutral-900 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-neutral-800 transition-colors"
+            className="inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-8 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-indigo-500/50"
           >
             View All {professionCount} Professions
           </Link>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold tracking-tight text-neutral-900 mb-4">
-            How UseThisAI Works
-          </h2>
-        </div>
+      {/* How It Works - Redesigned */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-indigo-900/10" />
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-white mb-4">
+              How UseThisAI Works
+            </h2>
+            <p className="text-neutral-400">Three simple steps to AI adoption</p>
+          </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <div className="relative">
-            <div className="absolute -left-4 -top-4 text-5xl font-bold text-indigo-100">1</div>
-            <h3 className="text-xl font-semibold text-neutral-900 mb-2">Choose Your Profession</h3>
-            <p className="text-neutral-600">
-              Select your job title or industry from our comprehensive list of professions.
-            </p>
-          </div>
-          <div className="relative">
-            <div className="absolute -left-4 -top-4 text-5xl font-bold text-indigo-100">2</div>
-            <h3 className="text-xl font-semibold text-neutral-900 mb-2">Compare Tools</h3>
-            <p className="text-neutral-600">
-              See AI tools specifically recommended for your profession with ratings and pricing.
-            </p>
-          </div>
-          <div className="relative">
-            <div className="absolute -left-4 -top-4 text-5xl font-bold text-indigo-100">3</div>
-            <h3 className="text-xl font-semibold text-neutral-900 mb-2">Start Using</h3>
-            <p className="text-neutral-600">
-              Click to try the tools and start automating your workflow today.
-            </p>
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-3 relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-[24px] left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
+
+            {[
+              { title: 'Choose Profession', desc: 'Select your role from our industry list.', icon: '1' },
+              { title: 'Compare Tools', desc: 'View rated AI tools specific to your needs.', icon: '2' },
+              { title: 'Start Automating', desc: 'Click to try tools and boost productivity.', icon: '3' },
+            ].map((step, idx) => (
+              <div key={idx} className="relative flex flex-col items-center text-center group">
+                <div className="w-14 h-14 rounded-full bg-neutral-900 ring-4 ring-indigo-500/20 flex items-center justify-center text-xl font-bold text-indigo-400 mb-6 relative z-10 group-hover:ring-indigo-500 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                  {step.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-indigo-300 transition-colors">
+                  {step.title}
+                </h3>
+                <p className="text-neutral-400 leading-relaxed max-w-xs">
+                  {step.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl mx-auto max-w-7xl px-6 lg:px-8 mb-16 py-24 shadow-2xl">
-        <div className="absolute inset-0 bg-neutral-900 mix-blend-multiply opacity-10" />
-        <div className="relative mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-4">
-            Ready to transform your work with AI?
-          </h2>
-          <p className="text-lg text-indigo-100 mb-8">
-            Discover tools that will save you hours every week and boost your productivity.
-          </p>
-          <Link
-            href="/professions"
-            className="inline-flex items-center justify-center rounded-md bg-white px-8 py-3 text-base font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-colors"
-          >
-            Get Started Now
-          </Link>
+      <section className="mx-auto max-w-5xl px-6 lg:px-8 pb-20 pt-10">
+        <div className="relative overflow-hidden rounded-3xl bg-indigo-600 px-6 py-20 shadow-2xl sm:px-12 sm:py-24 text-center">
+          <div className="absolute inset-0 bg-neutral-900 mix-blend-multiply opacity-20" />
+          <div className="absolute -top-24 -left-24 w-64 h-64 bg-purple-500 rounded-full blur-3xl opacity-30" />
+          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-pink-500 rounded-full blur-3xl opacity-30" />
+
+          <div className="relative z-10">
+            <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight text-white mb-6">
+              Ready to modernize your workflow?
+            </h2>
+            <p className="mx-auto max-w-xl text-lg text-indigo-100 mb-10">
+              Join thousands of professionals finding the right AI tools for their specific needs.
+            </p>
+            <Link
+              href="/professions"
+              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-base font-bold text-indigo-600 shadow-xl hover:bg-neutral-100 hover:scale-105 transition-all duration-300"
+            >
+              Get Started for Free
+            </Link>
+          </div>
         </div>
       </section>
     </main>

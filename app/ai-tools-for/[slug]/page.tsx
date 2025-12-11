@@ -119,7 +119,7 @@ export default async function ProfessionPage({ params }: PageProps) {
     };
 
     return (
-        <main className="min-h-screen bg-neutral-50 font-sans text-neutral-900">
+        <main className="min-h-screen">
             {/* JSON-LD Schema for SEO */}
             <script
                 type="application/ld+json"
@@ -140,9 +140,9 @@ export default async function ProfessionPage({ params }: PageProps) {
 
                 {/* 2. Intro Content Card */}
                 {profession.seoContent?.intro && (
-                    <div className="bg-white rounded-2xl p-8 shadow-xl border border-neutral-100/50">
-                        <div className="prose prose-lg max-w-none prose-headings:text-neutral-900 prose-p:text-neutral-600 prose-a:text-indigo-600">
-                            <p className="leading-8 text-neutral-700">{profession.seoContent.intro}</p>
+                    <div className="bg-white/5 rounded-2xl p-8 shadow-xl border border-white/10 backdrop-blur-md">
+                        <div className="prose prose-lg max-w-none prose-invert prose-headings:text-white prose-p:text-neutral-300 prose-a:text-indigo-400">
+                            <p className="leading-8">{profession.seoContent.intro}</p>
                         </div>
                     </div>
                 )}
@@ -150,10 +150,10 @@ export default async function ProfessionPage({ params }: PageProps) {
                 {/* 3. Comparison Table (Money Element) */}
                 <section className="space-y-8">
                     <div className="text-center max-w-2xl mx-auto">
-                        <h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+                        <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                             Compare Top Tools
                         </h2>
-                        <p className="mt-4 text-lg text-neutral-600">
+                        <p className="mt-4 text-lg text-neutral-400">
                             Quick comparison of the best AI tools for {profession.title.toLowerCase()}s based on features, pricing, and user ratings.
                         </p>
                     </div>
@@ -164,10 +164,10 @@ export default async function ProfessionPage({ params }: PageProps) {
                 {profession.tools.length > 0 && (
                     <section className="space-y-8">
                         <div className="text-center max-w-2xl mx-auto">
-                            <h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+                            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                                 Recommended Tools for {profession.title}s
                             </h2>
-                            <p className="mt-4 text-lg text-neutral-600">
+                            <p className="mt-4 text-lg text-neutral-400">
                                 Explore our curated selection of AI tools designed to automate tasks and boost productivity.
                             </p>
                         </div>
@@ -188,10 +188,10 @@ export default async function ProfessionPage({ params }: PageProps) {
                 {faqs.length > 0 && (
                     <section className="space-y-8 max-w-4xl mx-auto w-full">
                         <div className="text-center">
-                            <h2 className="text-3xl font-bold tracking-tight text-neutral-900">
+                            <h2 className="text-3xl font-bold tracking-tight text-white">
                                 Frequently Asked Questions
                             </h2>
-                            <p className="mt-4 text-lg text-neutral-600">
+                            <p className="mt-4 text-lg text-neutral-400">
                                 Everything you need to know about using AI tools as a {profession.title.toLowerCase()}.
                             </p>
                         </div>
@@ -201,16 +201,19 @@ export default async function ProfessionPage({ params }: PageProps) {
 
                 {/* 6. Internal Links */}
                 {relatedProfessions.length > 0 && (
-                    <InternalLinks 
+                    <InternalLinks
                         currentProfession={profession.title}
                         relatedProfessions={relatedProfessions}
                     />
                 )}
 
                 {/* 7. Bottom CTA */}
-                <section className="relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl px-6 py-24 shadow-2xl sm:px-24 xl:py-32">
-                    <div className="absolute inset-0 bg-neutral-900 mix-blend-multiply opacity-10" />
-                    <div className="relative mx-auto max-w-2xl text-center">
+                <section className="relative overflow-hidden bg-indigo-600 rounded-3xl px-6 py-24 shadow-2xl sm:px-24 xl:py-32 text-center">
+                    <div className="absolute inset-0 bg-neutral-900 mix-blend-multiply opacity-20" />
+                    <div className="absolute -top-24 -left-24 w-64 h-64 bg-purple-500 rounded-full blur-3xl opacity-30" />
+                    <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-pink-500 rounded-full blur-3xl opacity-30" />
+
+                    <div className="relative mx-auto max-w-2xl z-10">
                         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                             Ready to transform your work with AI?
                         </h2>
@@ -218,15 +221,15 @@ export default async function ProfessionPage({ params }: PageProps) {
                             Start using these AI tools today to automate tasks, save time, and stay competitive in 2025.
                         </p>
                         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-x-6 gap-y-3">
-                            <a 
-                                href="#" 
-                                className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-all"
+                            <a
+                                href="#"
+                                className="rounded-full bg-white px-8 py-3.5 text-sm font-bold text-indigo-600 shadow-xl hover:bg-neutral-100 hover:scale-105 transition-all duration-300"
                             >
                                 Explore All Tools
                             </a>
-                            <a 
-                                href="#" 
-                                className="rounded-md border border-white px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-all"
+                            <a
+                                href="#"
+                                className="rounded-full border border-white/20 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm hover:bg-white/10 hover:border-white/40 transition-all duration-300"
                             >
                                 Learn More
                             </a>

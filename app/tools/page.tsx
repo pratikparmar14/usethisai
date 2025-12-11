@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default async function ToolsPage() {
   const tools = await prisma.tool.findMany({
-    select: { 
-      name: true, 
-      slug: true, 
+    select: {
+      name: true,
+      slug: true,
       pricing: true,
       website: true,
       professions: {
@@ -23,19 +23,18 @@ export default async function ToolsPage() {
   });
 
   return (
-    <main className="min-h-screen bg-neutral-50 font-sans text-neutral-900">
+    <main className="min-h-screen">
       {/* Header */}
-      <section className="relative overflow-hidden bg-neutral-900 py-16 sm:py-20">
+      <section className="relative overflow-hidden pt-12 pb-16">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-neutral-900 to-neutral-950 opacity-90" />
-          <div className="absolute bottom-0 left-0 -ml-24 -mb-24 w-96 h-96 rounded-full bg-purple-500 blur-3xl opacity-20" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-[100px] animate-pulse-slow" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-4">
             All AI Tools
           </h1>
-          <p className="mx-auto max-w-2xl text-lg text-neutral-300">
+          <p className="mx-auto max-w-2xl text-lg text-neutral-400">
             Browse {tools.length}+ AI tools reviewed and recommended for various professions
           </p>
         </div>
@@ -47,34 +46,33 @@ export default async function ToolsPage() {
           {tools.map((tool) => (
             <div
               key={tool.slug}
-              className="group relative overflow-hidden rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 transition-all hover:shadow-lg hover:ring-indigo-500/50"
+              className="group relative overflow-hidden rounded-xl bg-white/5 p-6 shadow-xl ring-1 ring-white/10 backdrop-blur-sm transition-all hover:shadow-2xl hover:bg-white/10 hover:ring-indigo-500/50"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/0 to-indigo-500/0 group-hover:from-indigo-500/5 group-hover:via-indigo-500/10 group-hover:to-indigo-500/5 transition-all" />
-              
+
               <div className="relative space-y-4">
                 {/* Tool Header */}
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-neutral-900 group-hover:text-indigo-600 transition-colors">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-indigo-300 transition-colors">
                       {tool.name}
                     </h3>
-                    <p className="text-sm text-neutral-500 mt-1">{tool.pricing}</p>
+                    <p className="text-sm text-neutral-400 mt-1">{tool.pricing}</p>
                   </div>
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 font-bold text-sm">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-indigo-500/20 text-indigo-300 font-bold text-sm ring-1 ring-inset ring-indigo-500/30">
                     {tool.name.charAt(0)}
                   </div>
                 </div>
 
                 {/* Professions using this tool */}
                 {tool.professions.length > 0 && (
-                  <div className="pt-2 border-t border-neutral-100">
+                  <div className="pt-2 border-t border-white/10">
                     <p className="text-xs font-medium text-neutral-500 mb-2">Used by:</p>
                     <div className="flex flex-wrap gap-2">
                       {tool.professions.map((item) => (
                         <Link
                           key={item.profession.slug}
                           href={`/ai-tools-for/${item.profession.slug}`}
-                          className="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 hover:bg-indigo-100 transition-colors"
+                          className="inline-flex items-center rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-indigo-300 ring-1 ring-inset ring-white/10 hover:bg-white/10 transition-colors"
                         >
                           {item.profession.title}
                         </Link>
@@ -88,7 +86,7 @@ export default async function ToolsPage() {
                   href={tool.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 flex items-center justify-center rounded-lg bg-neutral-900 px-4 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors"
+                  className="mt-4 flex items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:scale-[1.02] transition-all duration-200"
                 >
                   Visit Website →
                 </a>
@@ -99,15 +97,15 @@ export default async function ToolsPage() {
       </div>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl mx-auto max-w-7xl px-6 lg:px-8 mb-16 py-16 shadow-2xl">
-        <div className="absolute inset-0 bg-neutral-900 mix-blend-multiply opacity-10" />
+      <section className="relative overflow-hidden bg-indigo-600/20 border border-indigo-500/30 rounded-3xl mx-auto max-w-7xl px-6 lg:px-8 mb-16 py-16 shadow-2xl backdrop-blur-md">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10" />
         <div className="relative mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl mb-4">
             Looking for tools for a specific profession?
           </h2>
           <Link
             href="/professions"
-            className="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-colors"
+            className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-neutral-100 transition-colors"
           >
             Browse by Profession
           </Link>
