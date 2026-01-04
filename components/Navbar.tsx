@@ -35,12 +35,7 @@ export function Navbar() {
                             >
                                 Tools
                             </Link>
-                            <a
-                                href="mailto:hello@usethisai.com"
-                                className="text-sm font-medium text-neutral-300 hover:text-white transition-colors"
-                            >
-                                Contact
-                            </a>
+
                         </div>
                     </div>
 
@@ -96,13 +91,7 @@ export function Navbar() {
                         >
                             Tools
                         </Link>
-                        <a
-                            href="mailto:hello@usethisai.com"
-                            className="block rounded-md px-3 py-2 text-base font-medium text-neutral-300 hover:bg-white/5 hover:text-white"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                            Contact
-                        </a>
+
                     </div>
                 </div>
             )}
