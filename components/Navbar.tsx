@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -13,8 +14,13 @@ export function Navbar() {
                     {/* Logo */}
                     <div className="flex-shrink-0">
                         <Link href="/" className="flex items-center gap-2 group">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold ring-1 ring-white/20 group-hover:bg-indigo-500 transition-colors">
-                                AI
+                            <div className="relative h-8 w-8">
+                                <Image
+                                    src="/logo.png"
+                                    alt="UseThisAI Logo"
+                                    fill
+                                    className="object-contain"
+                                />
                             </div>
                             <span className="text-xl font-bold text-white tracking-tight">UseThisAI</span>
                         </Link>
