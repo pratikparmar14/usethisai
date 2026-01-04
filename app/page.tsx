@@ -31,6 +31,12 @@ export default async function Home() {
       <Hero
         title="Find the Best AI Tools for Your Profession"
         description={`Compare ${toolCount}+ AI tools across ${professionCount} professions. Get curated recommendations tailored to your specific workflow.`}
+        stats={{
+          tools: toolCount,
+          professions: professionCount,
+          matches: relationshipCount,
+        }}
+        trendingProfessions={professions.slice(0, 6)}
       />
 
       {/* Main Buttons (previously in Hero) */}

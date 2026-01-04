@@ -50,7 +50,7 @@ export function ToolCard({ tool, rating, useCase }: ToolCardProps) {
                     href={tool.affiliateLink || tool.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:scale-[1.02] transition-all duration-200"
+                    className="mt-4 flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-800 to-purple-400 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:scale-[1.02] transition-all duration-200"
                 >
                     Visit Website
                 </a>
